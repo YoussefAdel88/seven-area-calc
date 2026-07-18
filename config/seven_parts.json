@@ -1,0 +1,104 @@
+{
+  "parts": [
+    {
+      "id": "BOH",
+      "name": "Back of House",
+      "description": "All internal areas accessible by staff only, normally restricted to guests: staff offices, lobbies, amenities, circulation. Excludes Internal Service Areas (ISA).",
+      "included_in_surveys": ["GFA", "BUA"],
+      "excluded_from_surveys": [],
+      "wall_measurement_rule": "interior_face_max_200mm",
+      "source": "SEVEN_PDF_§4.3.6_p.6"
+    },
+    {
+      "id": "FOH",
+      "name": "Front of House",
+      "description": "All internal areas accessible to guests: public realm, guest facilities, amenities. Includes internal public realm and guest circulation.",
+      "included_in_surveys": ["GLA", "GFA", "BUA"],
+      "excluded_from_surveys": [],
+      "wall_measurement_rule": "interior_face_max_200mm",
+      "source": "SEVEN_PDF_§4.3.5_p.6"
+    },
+    {
+      "id": "ISA",
+      "name": "Internal Service Area",
+      "description": "Areas for complex-use support: MEP spaces, storage provisions, mechanical rooms. Part of GFA but typically bundled separately.",
+      "included_in_surveys": ["GFA", "BUA"],
+      "excluded_from_surveys": [],
+      "wall_measurement_rule": "interior_face_max_200mm",
+      "source": "SEVEN_PDF_§4.3.9_p.7"
+    },
+    {
+      "id": "ESA",
+      "name": "External Service Area",
+      "description": "Areas for complex-use support that are open-to-air: loading docks, rooftop plant, equipment areas.",
+      "included_in_surveys": ["BUA", "ONEA"],
+      "excluded_from_surveys": ["GFA"],
+      "wall_measurement_rule": "not_applicable_open_air",
+      "source": "SEVEN_PDF_§4.3.10_p.7"
+    },
+    {
+      "id": "CPA",
+      "name": "Structured Car Parking Area",
+      "description": "Standalone or integrated parking structure: parking bays, service areas, driveways.",
+      "included_in_surveys": ["BUA"],
+      "excluded_from_surveys": ["GFA"],
+      "wall_measurement_rule": "centerline_parking_floor",
+      "source": "SEVEN_PDF_§4.3.11_p.7"
+    },
+    {
+      "id": "RETAIL",
+      "name": "Retail / F&B",
+      "description": "Leasable retail and food & beverage tenant spaces.",
+      "included_in_surveys": ["GLA", "GFA", "BUA"],
+      "excluded_from_surveys": [],
+      "wall_measurement_rule": "interior_face_max_200mm",
+      "source": "SEVEN_PDF_§4.3.4_p.6"
+    },
+    {
+      "id": "CINEMA",
+      "name": "Cinema / Entertainment",
+      "description": "Leasable cinema or entertainment venue spaces.",
+      "included_in_surveys": ["GLA", "GFA", "BUA"],
+      "excluded_from_surveys": [],
+      "wall_measurement_rule": "interior_face_max_200mm",
+      "source": "SEVEN_PDF_§4.3.4_p.6"
+    },
+    {
+      "id": "ATRIUM",
+      "name": "Atrium / Internal Covered Public Realm",
+      "description": "Internal public realm spaces, including covered atriums, circulation, and guest flow areas. Part of FOH.",
+      "included_in_surveys": ["FOH", "GFA", "BUA"],
+      "excluded_from_surveys": [],
+      "wall_measurement_rule": "interior_face_max_200mm",
+      "source": "SEVEN_PDF_§4.3.5_FOH_Definition"
+    },
+    {
+      "id": "VOID",
+      "name": "Void / Shaft",
+      "description": "Unenclosed vertical or horizontal voids (shafts, lift wells, vents). Measurement depends on whether it serves single tenant (interior-face) or multiple (centerline).",
+      "included_in_surveys": [],
+      "excluded_from_surveys": ["GLA", "GFA", "BUA"],
+      "wall_measurement_rule": "void_measurement_conditional",
+      "source": "SEVEN_PDF_§4.4_Figures_4.10-4.12_&_4.59",
+      "note": "Void boundaries are calculated but not summed into area totals. Flagged separately for void analysis."
+    },
+    {
+      "id": "ONEA",
+      "name": "On-Site External Area",
+      "description": "Area surrounding Building Footprint, within Plot Area boundary: public realm, landscaping, guest roads, on-grade parking, service roads, loading areas.",
+      "included_in_surveys": ["ONEA"],
+      "excluded_from_surveys": ["GFA", "BUA"],
+      "wall_measurement_rule": "not_applicable_external",
+      "source": "SEVEN_PDF_§4.3.13_p.7"
+    },
+    {
+      "id": "OFEA",
+      "name": "Off-Site External Area",
+      "description": "Area between Plot Area boundary and Project Area boundary: public realm, landscaping, road enhancements, on-grade parking, site conservation.",
+      "included_in_surveys": ["OFEA"],
+      "excluded_from_surveys": ["GFA", "BUA"],
+      "wall_measurement_rule": "not_applicable_external",
+      "source": "SEVEN_PDF_§4.3.14_p.7"
+    }
+  ]
+}

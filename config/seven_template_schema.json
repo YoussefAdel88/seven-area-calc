@@ -1,0 +1,506 @@
+{
+  "template_info": {
+    "document_code": "0DMQL00-DLVR-00-SEV-PM-TEM-00026_00",
+    "template_name": "SEVEN Area Template",
+    "sheet_name": "Area Template",
+    "header_row": 11,
+    "data_start_row": 12,
+    "columns": [
+      {
+        "name": "ID",
+        "col": "A",
+        "type": "integer",
+        "description": "Sequential line item ID"
+      },
+      {
+        "name": "CATEGORY",
+        "col": "B",
+        "type": "string",
+        "description": "High-level grouping (LAND + OUT OF PLOT, PLOT COVERAGE, GLA, GFA, BUA, etc.)"
+      },
+      {
+        "name": "DESCRIPTION",
+        "col": "C",
+        "type": "string",
+        "description": "Detailed description of line item"
+      },
+      {
+        "name": "AREAS (sm)",
+        "col": "D",
+        "type": "float",
+        "description": "Area in square meters"
+      },
+      {
+        "name": "TITLE DEED",
+        "col": "E",
+        "type": "string",
+        "description": "Title Deed reference or status"
+      },
+      {
+        "name": "T/D EXTENSION",
+        "col": "F",
+        "type": "string",
+        "description": "Title Deed Extension reference"
+      }
+    ]
+  },
+  "line_items": [
+    {
+      "id": 1,
+      "category": "LAND + OUT OF PLOT DEVELOPMENT",
+      "description": "Land Area (Plot Area)",
+      "source_survey": "PA",
+      "formula": "=Plot_Area",
+      "excludes": [],
+      "row": 12
+    },
+    {
+      "id": 2,
+      "category": "LAND + OUT OF PLOT DEVELOPMENT",
+      "description": "Out of Plot Development",
+      "source_survey": "OFEA",
+      "formula": "=Off_Site_External_Area",
+      "excludes": [],
+      "row": 13
+    },
+    {
+      "id": 3,
+      "category": "LAND + OUT OF PLOT DEVELOPMENT",
+      "description": "Total Project Area",
+      "source_survey": "PR",
+      "formula": "=D12+D13",
+      "excludes": [],
+      "row": 14
+    },
+    {
+      "id": 4,
+      "category": "LAND + OUT OF PLOT DEVELOPMENT",
+      "description": "Subtotal: Land + Out of Plot",
+      "source_survey": "PR",
+      "formula": "=D14",
+      "excludes": [],
+      "row": 15
+    },
+    {
+      "id": 5,
+      "category": "PLOT COVERAGE + RESIDUAL AREA",
+      "description": "Building Footprint",
+      "source_survey": "BF",
+      "formula": "=Building_Footprint",
+      "excludes": [],
+      "row": 16
+    },
+    {
+      "id": 6,
+      "category": "PLOT COVERAGE + RESIDUAL AREA",
+      "description": "Plot Coverage %",
+      "source_survey": "PC",
+      "formula": "=(D5/D12)*100",
+      "excludes": [],
+      "row": 17
+    },
+    {
+      "id": 7,
+      "category": "PLOT COVERAGE + RESIDUAL AREA",
+      "description": "Residual Area (On-Plot Landscape + External)",
+      "source_survey": "ONEA",
+      "formula": "=D12-D5",
+      "excludes": [],
+      "row": 18
+    },
+    {
+      "id": 8,
+      "category": "PLOT COVERAGE + RESIDUAL AREA",
+      "description": "Subtotal: Plot Coverage + Residual",
+      "source_survey": "ONEA",
+      "formula": "=D5+D7",
+      "excludes": [],
+      "row": 19
+    },
+    {
+      "id": 9,
+      "category": "F&B / RETAIL / OTHER LEASABLE",
+      "description": "F&B / Restaurant",
+      "source_survey": "GLA",
+      "formula": "=SUM_F&B_Spaces",
+      "excludes": [],
+      "row": 20
+    },
+    {
+      "id": 10,
+      "category": "F&B / RETAIL / OTHER LEASABLE",
+      "description": "Retail",
+      "source_survey": "GLA",
+      "formula": "=SUM_Retail_Spaces",
+      "excludes": [],
+      "row": 21
+    },
+    {
+      "id": 11,
+      "category": "F&B / RETAIL / OTHER LEASABLE",
+      "description": "Other Leasable",
+      "source_survey": "GLA",
+      "formula": "=SUM_Other_Leasable_Spaces",
+      "excludes": [],
+      "row": 22
+    },
+    {
+      "id": 12,
+      "category": "F&B / RETAIL / OTHER LEASABLE",
+      "description": "Subtotal: F&B / Retail / Other",
+      "source_survey": "GLA",
+      "formula": "=SUM(D9:D11)",
+      "excludes": [],
+      "row": 23
+    },
+    {
+      "id": 13,
+      "category": "F&B / RETAIL / OTHER LEASABLE",
+      "description": "Common Area serving F&B / Retail",
+      "source_survey": "GFA",
+      "formula": "=Common_Area_F&B",
+      "excludes": [],
+      "row": 24
+    },
+    {
+      "id": 14,
+      "category": "F&B / RETAIL / OTHER LEASABLE",
+      "description": "Total F&B / Retail",
+      "source_survey": "GLA",
+      "formula": "=D12+D13",
+      "excludes": [],
+      "row": 25
+    },
+    {
+      "id": 15,
+      "category": "CINEMA",
+      "description": "Cinema Complex",
+      "source_survey": "GLA",
+      "formula": "=SUM_Cinema_Spaces",
+      "excludes": [],
+      "row": 26
+    },
+    {
+      "id": 16,
+      "category": "CINEMA",
+      "description": "Total Cinema",
+      "source_survey": "GLA",
+      "formula": "=D15",
+      "excludes": [],
+      "row": 27
+    },
+    {
+      "id": 17,
+      "category": "COMPLEX CLOSED ATTRACTIONS",
+      "description": "Theme Park / Main Attraction",
+      "source_survey": "GLA",
+      "formula": "=Attraction_1",
+      "excludes": [],
+      "row": 28
+    },
+    {
+      "id": 18,
+      "category": "COMPLEX CLOSED ATTRACTIONS",
+      "description": "Secondary Attraction",
+      "source_survey": "GLA",
+      "formula": "=Attraction_2",
+      "excludes": [],
+      "row": 29
+    },
+    {
+      "id": 19,
+      "category": "COMPLEX CLOSED ATTRACTIONS",
+      "description": "Supporting Attractions",
+      "source_survey": "GLA",
+      "formula": "=SUM_Supporting_Attractions",
+      "excludes": [],
+      "row": 30
+    },
+    {
+      "id": 20,
+      "category": "COMPLEX CLOSED ATTRACTIONS",
+      "description": "Total Closed Attractions",
+      "source_survey": "GLA",
+      "formula": "=SUM(D17:D19)",
+      "excludes": [],
+      "row": 31
+    },
+    {
+      "id": 29,
+      "category": "COMPLEX PUBLIC REALM ATTRACTIONS",
+      "description": "Public Realm Attractions",
+      "source_survey": "FOH",
+      "formula": "=SUM_Public_Realm",
+      "excludes": [],
+      "row": 38
+    },
+    {
+      "id": 30,
+      "category": "COMPLEX PUBLIC REALM ATTRACTIONS",
+      "description": "Atrium / MEP Shafts / Lift Shafts (Base Level)",
+      "source_survey": "FOH",
+      "formula": "=SUM_Atrium_Voids",
+      "excludes": [],
+      "row": 39,
+      "note": "Typo in source PDF: 'Diagram' → interpreted as Atrium / Internal Covered Public Realm"
+    },
+    {
+      "id": 31,
+      "category": "COMPLEX PUBLIC REALM ATTRACTIONS",
+      "description": "Total Public Realm Attractions",
+      "source_survey": "FOH",
+      "formula": "=SUM(D29:D30)",
+      "excludes": [],
+      "row": 40
+    },
+    {
+      "id": 32,
+      "category": "COMPLEX PUBLIC REALM ATTRACTIONS",
+      "description": "Total Complex GLA",
+      "source_survey": "GLA",
+      "formula": "=D14+D16+D20+D31",
+      "excludes": [],
+      "row": 41,
+      "note": "Sum of all leasable areas"
+    },
+    {
+      "id": 33,
+      "category": "COMMON AREAS",
+      "description": "Front of House / Circulation (Including Indoor Covered Public Realm)",
+      "source_survey": "FOH",
+      "formula": "=SUM_FOH_Circulation",
+      "excludes": [],
+      "row": 42
+    },
+    {
+      "id": 34,
+      "category": "COMMON AREAS",
+      "description": "Back of House / Staff Circulation",
+      "source_survey": "BOH",
+      "formula": "=SUM_BOH_Circulation",
+      "excludes": [],
+      "row": 43
+    },
+    {
+      "id": 35,
+      "category": "COMMON AREAS",
+      "description": "Internal Service Areas (ISA) - MEP, Storage",
+      "source_survey": "ISA",
+      "formula": "=SUM_ISA",
+      "excludes": [],
+      "row": 44
+    },
+    {
+      "id": 36,
+      "category": "COMMON AREAS",
+      "description": "Central Plant / Roof Plant (Interior Access)",
+      "source_survey": "ISA",
+      "formula": "=Central_Plant",
+      "excludes": [],
+      "row": 45
+    },
+    {
+      "id": 37,
+      "category": "COMMON AREAS",
+      "description": "Vertical Circulation (Stairs, Escalators, Lifts)",
+      "source_survey": "GFA",
+      "formula": "=SUM_Vertical_Circulation",
+      "excludes": [],
+      "row": 46
+    },
+    {
+      "id": 38,
+      "category": "COMMON AREAS",
+      "description": "Shared Walls (Not counted in GLA)",
+      "source_survey": "GFA",
+      "formula": "=Shared_Wall_Area",
+      "excludes": [],
+      "row": 47
+    },
+    {
+      "id": 39,
+      "category": "COMMON AREAS",
+      "description": "Total Complex GFA",
+      "source_survey": "GFA",
+      "formula": "=D32+D33+D34+D35+D36+D37+D38",
+      "excludes": [],
+      "row": 48,
+      "note": "Sum of GLA + FOH + BOH + ISA + Shared Walls"
+    },
+    {
+      "id": 40,
+      "category": "OTHER COMPLEX AREAS",
+      "description": "Parking (Structured)",
+      "source_survey": "CPA",
+      "formula": "=SUM_Parking_Areas",
+      "excludes": [],
+      "row": 49
+    },
+    {
+      "id": 41,
+      "category": "OTHER COMPLEX AREAS",
+      "description": "Loading / Service Docks (Exterior Covered)",
+      "source_survey": "ESA",
+      "formula": "=SUM_Loading_Docks",
+      "excludes": [],
+      "row": 50
+    },
+    {
+      "id": 42,
+      "category": "OTHER COMPLEX AREAS",
+      "description": "Roof Plant / Equipment Areas (Exterior Open)",
+      "source_survey": "ESA",
+      "formula": "=SUM_Rooftop_Plant",
+      "excludes": [],
+      "row": 51
+    },
+    {
+      "id": 43,
+      "category": "OTHER COMPLEX AREAS",
+      "description": "Roof Slabs (Service and Amenity areas)",
+      "source_survey": "BUA",
+      "formula": "=SUM_Roof_Slabs",
+      "excludes": [],
+      "row": 52,
+      "note": "Separate line item for roof slab area (not included in GFA but in BUA)"
+    },
+    {
+      "id": 44,
+      "category": "OTHER COMPLEX AREAS",
+      "description": "Basement / Cellar Areas",
+      "source_survey": "BUA",
+      "formula": "=SUM_Basement",
+      "excludes": [],
+      "row": 53
+    },
+    {
+      "id": 45,
+      "category": "OTHER COMPLEX AREAS",
+      "description": "Total Complex BUA",
+      "source_survey": "BUA",
+      "formula": "=D39+D40+D41+D42+D43+D44",
+      "excludes": [],
+      "row": 54,
+      "note": "Sum of GFA + CPA + ESA + Roof Slabs + Basement"
+    },
+    {
+      "id": 53,
+      "category": "EXTERNAL WORKS",
+      "description": "External Works Within Plot - Soft Landscape",
+      "source_survey": "ONEA",
+      "formula": "=SUM_Soft_Landscape",
+      "excludes": [],
+      "row": 55
+    },
+    {
+      "id": 54,
+      "category": "EXTERNAL WORKS",
+      "description": "External Works Within Plot - Hard Landscape",
+      "source_survey": "ONEA",
+      "formula": "=SUM_Hard_Landscape",
+      "excludes": [],
+      "row": 56
+    },
+    {
+      "id": 55,
+      "category": "EXTERNAL WORKS",
+      "description": "External Works Outside Plot - Soft Landscape",
+      "source_survey": "OFEA",
+      "formula": "=SUM_Offsite_Soft_Landscape",
+      "excludes": [],
+      "row": 57
+    },
+    {
+      "id": 56,
+      "category": "EXTERNAL WORKS",
+      "description": "External Works Outside Plot - Hard Landscape",
+      "source_survey": "OFEA",
+      "formula": "=SUM_Offsite_Hard_Landscape",
+      "excludes": [],
+      "row": 58
+    },
+    {
+      "id": 57,
+      "category": "EXTERNAL WORKS",
+      "description": "Total Development Area",
+      "source_survey": "DA",
+      "formula": "=SUM(D53:D56)",
+      "excludes": [],
+      "row": 59
+    },
+    {
+      "id": 60,
+      "category": "PARKING NUMBERS",
+      "description": "Parking Spaces - Standard",
+      "source_survey": "CPA",
+      "formula": "=COUNT_Standard_Spaces",
+      "type": "count",
+      "excludes": [],
+      "row": 60
+    },
+    {
+      "id": 61,
+      "category": "PARKING NUMBERS",
+      "description": "Parking Spaces - Accessible",
+      "source_survey": "CPA",
+      "formula": "=COUNT_Accessible_Spaces",
+      "type": "count",
+      "excludes": [],
+      "row": 61
+    },
+    {
+      "id": 62,
+      "category": "PARKING NUMBERS",
+      "description": "Parking Spaces - Total",
+      "source_survey": "CPA",
+      "formula": "=SUM(D60:D61)",
+      "type": "count",
+      "excludes": [],
+      "row": 62
+    },
+    {
+      "id": 63,
+      "category": "ROOFTOP / PLANT",
+      "description": "Rooftop Public Access Area",
+      "source_survey": "ONEA",
+      "formula": "=Rooftop_Public_Area",
+      "excludes": [],
+      "row": 63
+    },
+    {
+      "id": 64,
+      "category": "ROOFTOP / PLANT",
+      "description": "Rooftop Plant / Equipment (Non-Public)",
+      "source_survey": "ESA",
+      "formula": "=Rooftop_Plant_Equipment",
+      "excludes": [],
+      "row": 64
+    }
+  ],
+  "validation_rules": [
+    {
+      "id": "gfa_equals_gla_plus_foh_boh",
+      "rule": "D39 (GFA) = D32 (GLA) + D33 (FOH) + D34 (BOH) + D35 (ISA) + D38 (Shared Walls)",
+      "description": "GFA must equal sum of all occupiable areas",
+      "source": "SEVEN_PDF_§4.3.7"
+    },
+    {
+      "id": "bua_equals_gfa_plus_services",
+      "rule": "D45 (BUA) = D39 (GFA) + D40 (CPA) + D41-D42 (ESA) + D43 (Roof Slabs) + D44 (Basement)",
+      "description": "BUA must equal GFA + all non-occupiable built areas",
+      "source": "SEVEN_PDF_§4.3.12"
+    },
+    {
+      "id": "pc_calculation",
+      "rule": "D6 (PC %) = (D5 / D12) * 100",
+      "description": "Plot Coverage = Building Footprint / Plot Area",
+      "source": "SEVEN_PDF_§4.3.3"
+    },
+    {
+      "id": "far_calculation",
+      "rule": "FAR = D39 (GFA) / D12 (PA)",
+      "description": "Floor Area Ratio = GFA / Plot Area",
+      "source": "SEVEN_PDF_§4.3.8"
+    }
+  ]
+}

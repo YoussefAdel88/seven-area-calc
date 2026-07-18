@@ -1,0 +1,160 @@
+{
+  "surveys": [
+    {
+      "id": "PA",
+      "name": "Plot Area",
+      "description": "2D horizontal area within the registered plot boundary (Krooki), regardless of slope/terrain.",
+      "parts": [],
+      "formula": "measured_from_boundary",
+      "is_ratio_numerator": false,
+      "is_ratio_denominator": true,
+      "source": "SEVEN_PDF_§2.1_Definition_1_&_§4.3.1_p.6"
+    },
+    {
+      "id": "PC",
+      "name": "Plot Coverage",
+      "description": "Percentage of plot covered by building footprint.",
+      "parts": [],
+      "formula": "PC = BF / PA * 100",
+      "ratio_numerator": "BF",
+      "ratio_denominator": "PA",
+      "is_ratio": true,
+      "source": "SEVEN_PDF_§2.1_Definition_3_&_§4.3.3_p.6"
+    },
+    {
+      "id": "BF",
+      "name": "Building Footprint",
+      "description": "Total enclosed+covered area of building at ground plane, measured to outermost extent of construction where building meets ground.",
+      "parts": [],
+      "formula": "measured_from_geometry",
+      "is_ratio_numerator": true,
+      "is_ratio_denominator": false,
+      "source": "SEVEN_PDF_§2.1_Definition_2_&_§4.3.2_p.6"
+    },
+    {
+      "id": "GLA",
+      "name": "Gross Leasable Area",
+      "description": "Area in exclusive tenant occupation/beneficial use, including internal walls/columns. Tenancies with immediate adjacencies may include bounding-wall floor area.",
+      "parts": ["RETAIL", "F&B", "CINEMA", "ENTERTAINMENT"],
+      "excludes": ["BOH", "FOH_circulation_only", "ISA", "ESA"],
+      "formula": "SUM(RETAIL + F&B + CINEMA + other_leasable_parts)",
+      "included_in_gfa": true,
+      "measurement_rule": "interior_face_max_200mm",
+      "source": "SEVEN_PDF_§2.1_Definition_4_&_§4.3.4_p.6"
+    },
+    {
+      "id": "FOH",
+      "name": "Front of House",
+      "description": "All internal areas accessible to guests: public realm, guest facilities, amenities, guest circulation.",
+      "parts": ["ATRIUM", "GUEST_CIRCULATION", "GUEST_AMENITIES"],
+      "excludes": ["BOH", "ISA"],
+      "formula": "SUM(guest-accessible_parts)",
+      "included_in_gfa": true,
+      "measurement_rule": "interior_face_max_200mm",
+      "source": "SEVEN_PDF_§2.1_Definition_5_&_§4.3.5_p.6"
+    },
+    {
+      "id": "BOH",
+      "name": "Back of House",
+      "description": "All internal areas accessible by staff only, normally restricted to guests: staff offices, lobbies, amenities, circulation. Excludes Internal Service Areas.",
+      "parts": ["STAFF_OFFICES", "STAFF_CIRCULATION", "STAFF_AMENITIES"],
+      "excludes": ["ISA"],
+      "formula": "SUM(staff-only_parts)",
+      "included_in_gfa": true,
+      "measurement_rule": "interior_face_max_200mm",
+      "source": "SEVEN_PDF_§2.1_Definition_6_&_§4.3.6_p.6"
+    },
+    {
+      "id": "GFA",
+      "name": "Gross Floor Area",
+      "description": "All internal occupiable floor area, basement→roof, classified as GLA+FOH+BOH. Includes all interior wall areas not already counted in GLA.",
+      "parts": ["GLA", "FOH", "BOH", "ISA"],
+      "formula": "GLA + FOH + BOH + (interior_walls_not_in_GLA)",
+      "included_in_bua": true,
+      "measurement_rule": "interior_face_max_200mm",
+      "source": "SEVEN_PDF_§2.1_Definition_7_&_§4.3.7_p.6"
+    },
+    {
+      "id": "FAR",
+      "name": "Floor Area Ratio",
+      "description": "Ratio of total floor area to plot area, expressed as a decimal or percentage.",
+      "parts": [],
+      "formula": "FAR = GFA / PA",
+      "ratio_numerator": "GFA",
+      "ratio_denominator": "PA",
+      "is_ratio": true,
+      "source": "SEVEN_PDF_§2.1_Definition_8_&_§4.3.8_p.6"
+    },
+    {
+      "id": "ISA",
+      "name": "Internal Service Area",
+      "description": "All areas for complex-use support: MEP spaces, storage provisions, mechanical rooms. Included in BUA and GFA.",
+      "parts": ["MEP_ROOMS", "STORAGE", "MECHANICAL"],
+      "formula": "SUM(service_parts)",
+      "included_in_gfa": true,
+      "included_in_bua": true,
+      "measurement_rule": "interior_face_max_200mm",
+      "source": "SEVEN_PDF_§2.1_Definition_9_&_§4.3.9_p.7"
+    },
+    {
+      "id": "BUA",
+      "name": "Built Up Area",
+      "description": "Total constructed floor area, basement→roof. Includes GFA + ISA + ESA + parking + service areas.",
+      "parts": ["GFA", "ISA", "ESA", "CPA"],
+      "excludes": [],
+      "formula": "GFA + ISA + ESA + CPA",
+      "source": "SEVEN_PDF_§2.1_Definition_12_&_§4.3.12_p.7"
+    },
+    {
+      "id": "ESA",
+      "name": "External Service Area",
+      "description": "All areas for complex-use support that are open-to-air: loading docks, rooftop plant, equipment areas.",
+      "parts": ["LOADING_DOCK", "ROOFTOP_PLANT", "EQUIPMENT"],
+      "excludes": [],
+      "formula": "SUM(external_service_parts)",
+      "included_in_bua": true,
+      "measurement_rule": "not_applicable_open_air",
+      "source": "SEVEN_PDF_§2.1_Definition_10_&_§4.3.10_p.7"
+    },
+    {
+      "id": "CPA",
+      "name": "Structured Car Parking Area",
+      "description": "Standalone or integrated parking structure: parking bays, service areas, driveways. Excluded from GFA but included in BUA.",
+      "parts": ["PARKING_BAYS", "PARKING_SERVICE", "PARKING_DRIVEWAY"],
+      "excludes": [],
+      "formula": "SUM(parking_parts)",
+      "included_in_bua": true,
+      "excluded_from_gfa": true,
+      "measurement_rule": "centerline_parking_floor",
+      "source": "SEVEN_PDF_§2.1_Definition_11_&_§4.3.11_p.7"
+    },
+    {
+      "id": "ONEA",
+      "name": "On-Site External Area",
+      "description": "Area surrounding Building Footprint, within Plot Area boundary: public realm, landscaping, guest roads, on-grade parking, service roads, loading areas.",
+      "parts": ["SOFT_LANDSCAPE", "HARD_LANDSCAPE", "GUEST_ROADS", "ON_GRADE_PARKING"],
+      "excludes": [],
+      "formula": "SUM(onsite_external_parts)",
+      "measurement_rule": "not_applicable_external",
+      "source": "SEVEN_PDF_§2.1_Definition_13_&_§4.3.13_p.7"
+    },
+    {
+      "id": "OFEA",
+      "name": "Off-Site External Area",
+      "description": "Area between Plot Area boundary and Project Area boundary: public realm, landscaping, road enhancements, on-grade parking, site conservation.",
+      "parts": ["OFFSITE_SOFT_LANDSCAPE", "OFFSITE_HARD_LANDSCAPE", "CONSERVATION_AREA"],
+      "excludes": [],
+      "formula": "SUM(offsite_external_parts)",
+      "measurement_rule": "not_applicable_external",
+      "source": "SEVEN_PDF_§2.1_Definition_14_&_§4.3.14_p.7"
+    },
+    {
+      "id": "PR",
+      "name": "Project Area",
+      "description": "Plot Area + further land outside plot area, benefiting the project as agreed with local authority/third-party landowner.",
+      "parts": ["PA", "OFEA"],
+      "formula": "PA + OFEA",
+      "source": "SEVEN_PDF_§2.1_Definition_15_&_§4.3.15_p.7"
+    }
+  ]
+}
