@@ -68,7 +68,7 @@ def upload_file():
     
     try:
         # Step 1: Validate DWG (warnings only, don't fail)
-        is_valid, messages = validate_dwg_file(tmp_dxf_path, config)
+        is_valid, messages = validate_dwg_file(tmp_dxf_path)
         warnings = [m for m in messages if m.startswith('WARNING:')]
         
         # Step 2: Parse DXF
