@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEVEN Area Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .upload-zone {
+            border: 2px dashed #667eea;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f9f9f9;
+            margin-bottom: 20px;
+        }
+        
+        .upload-zone:hover {
+            background: #f0f0ff;
+            border-color: #764ba2;
+        }
+        
+        .upload-zone.dragover {
+            background: #e8e8ff;
+            border-color: #764ba2;
+            transform: scale(1.02);
+        }
+        
+        .upload-zone input[type="file"] {
+            display: none;
+        }
+        
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        .upload-text {
+            color: #333;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .upload-subtext {
+            color: #999;
+            font-size: 13px;
+        }
+        
+        .file-name {
+            margin-top: 15px;
+            padding: 12px;
+            background: #e8f4f8;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
+            color: #333;
+            font-size: 13px;
+            display: none;
+        }
+        
+        .file-name.show {
+            display: block;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+        
+        .btn-secondary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .progress-section {
+            display: none;
+            margin-bottom: 20px;
+        }
+        
+        .progress-section.show {
+            display: block;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .progress-text {
+            color: #666;
+            font-size: 13px;
+            text-align: center;
+        }
+        
+        .results-section {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .results-section.show {
+            display: block;
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .result-label {
+            color: #666;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        .result-value {
+            color: #333;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            display: none;
+        }
+        
+        .message.show {
+            display: block;
+        }
+        
+        .message.success {
+            background: #e6f7f2;
+            border-left: 4px solid #10b981;
+            color: #047857;
+        }
+        
+        .message.error {
+            background: #fef2f2;
+            border-left: 4px solid #ef4444;
+            color: #b91c1c;
+        }
+        
+        .message.warning {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            color: #92400e;
+        }
+        
+        .download-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.4);
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #999;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SEVEN Area Calculator</h1>
+            <p>Upload a DXF file and automatically measure building areas (GLA, GFA, BUA)</p>
+        </div>
+        
+        <div class="message" id="messageBox"></div>
+        
+        <form id="uploadForm" enctype="multipart/form-data">
+            <div class="upload-zone" id="uploadZone">
+                <input type="file" id="fileInput" name="file" accept=".dxf" />
+                <div class="upload-icon">📐</div>
+                <div class="upload-text">Drag & drop your DXF file here</div>
+                <div class="upload-subtext">or click to select a file</div>
+            </div>
+            <div class="file-name" id="fileName"></div>
+            
+            <div class="button-group">
+                <button type="submit" class="btn btn-primary" id="processBtn" disabled>
+                    <span id="processBtnText">Select a file to begin</span>
+                </button>
+                <button type="button" class="btn btn-secondary" id="clearBtn" disabled onclick="clearForm()">
+                    Clear
+                </button>
+            </div>
+        </form>
+        
+        <div class="progress-section" id="progressSection">
+            <div class="progress-bar">
+                <div class="progress-bar-fill"></div>
+            </div>
+            <div class="progress-text">
+                <span class="spinner"></span>Processing...
+            </div>
+        </div>
+        
+        <div class="results-section" id="resultsSection">
+            <h3 style="margin-bottom: 15px; color: #333; font-size: 16px;">Results</h3>
+            <div class="result-item">
+                <span class="result-label">Regions Found:</span>
+                <span class="result-value" id="regionsCount">—</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">GLA (Gross Leasable Area):</span>
+                <span class="result-value" id="resultGLA">—</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">GFA (Gross Floor Area):</span>
+                <span class="result-value" id="resultGFA">—</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">BUA (Building Usable Area):</span>
+                <span class="result-value" id="resultBUA">—</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Project Area:</span>
+                <span class="result-value" id="resultPA">—</span>
+            </div>
+            <button class="download-btn" id="downloadBtn" onclick="downloadExcel()">
+                ⬇ Download Excel Report
+            </button>
+        </div>
+        
+        <div class="footer">
+            SEVEN Area Measurement & Reporting Methodology | Phase 6 Web Interface
+        </div>
+    </div>
+    
+    <script>
+        const uploadZone = document.getElementById('uploadZone');
+        const fileInput = document.getElementById('fileInput');
+        const fileName = document.getElementById('fileName');
+        const processBtn = document.getElementById('processBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const progressSection = document.getElementById('progressSection');
+        const resultsSection = document.getElementById('resultsSection');
+        const messageBox = document.getElementById('messageBox');
+        const processBtnText = document.getElementById('processBtnText');
+        
+        let selectedFile = null;
+        let lastDownloadUrl = null;
+        
+        // File selection via click
+        uploadZone.addEventListener('click', () => fileInput.click());
+        
+        // File selection via input
+        fileInput.addEventListener('change', (e) => {
+            handleFileSelect(e.target.files[0]);
+        });
+        
+        // Drag & drop
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('dragover');
+        });
+        
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.classList.remove('dragover');
+        });
+        
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('dragover');
+            handleFileSelect(e.dataTransfer.files[0]);
+        });
+        
+        function handleFileSelect(file) {
+            if (!file) return;
+            
+            if (!file.name.toLowerCase().endsWith('.dxf')) {
+                showMessage('Please select a .dxf file', 'error');
+                return;
+            }
+            
+            selectedFile = file;
+            fileName.textContent = `📄 ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+            fileName.classList.add('show');
+            processBtn.disabled = false;
+            clearBtn.disabled = false;
+            processBtnText.textContent = 'Process DXF';
+        }
+        
+        function clearForm() {
+            selectedFile = null;
+            fileInput.value = '';
+            fileName.classList.remove('show');
+            processBtn.disabled = true;
+            clearBtn.disabled = true;
+            processBtnText.textContent = 'Select a file to begin';
+            progressSection.classList.remove('show');
+            resultsSection.classList.remove('show');
+            messageBox.classList.remove('show');
+        }
+        
+        function showMessage(text, type = 'info') {
+            messageBox.textContent = text;
+            messageBox.className = `message show ${type}`;
+        }
+        
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (!selectedFile) {
+                showMessage('Please select a file first', 'error');
+                return;
+            }
+            
+            processBtn.disabled = true;
+            processBtnText.innerHTML = '<span class="spinner"></span>Processing...';
+            progressSection.classList.add('show');
+            resultsSection.classList.remove('show');
+            messageBox.classList.remove('show');
+            
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+            
+            try {
+                const response = await fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayResults(data);
+                    lastDownloadUrl = data.download_url;
+                    resultsSection.classList.add('show');
+                    showMessage(`✓ Successfully processed! Found ${data.regions_found} region(s).`, 'success');
+                    
+                    if (data.warnings && data.warnings.length > 0) {
+                        showMessage(`⚠ ${data.warnings.join('\n')}`, 'warning');
+                    }
+                } else {
+                    showMessage(`✗ Error: ${data.error}`, 'error');
+                    resultsSection.classList.remove('show');
+                }
+            } catch (error) {
+                showMessage(`✗ Network error: ${error.message}`, 'error');
+                resultsSection.classList.remove('show');
+            } finally {
+                processBtn.disabled = false;
+                processBtnText.textContent = 'Process DXF';
+                progressSection.classList.remove('show');
+            }
+        });
+        
+        function displayResults(data) {
+            document.getElementById('regionsCount').textContent = `${data.regions_found} region(s)`;
+            document.getElementById('resultGLA').textContent = `${data.surveys.GLA.toFixed(2)} m²`;
+            document.getElementById('resultGFA').textContent = `${data.surveys.GFA.toFixed(2)} m²`;
+            document.getElementById('resultBUA').textContent = `${data.surveys.BUA.toFixed(2)} m²`;
+            document.getElementById('resultPA').textContent = `${data.surveys.Project_Area.toFixed(2)} m²`;
+        }
+        
+        function downloadExcel() {
+            if (!lastDownloadUrl) {
+                showMessage('No file available for download', 'error');
+                return;
+            }
+            window.location.href = lastDownloadUrl;
+        }
+    </script>
+</body>
+</html>

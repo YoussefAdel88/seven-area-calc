@@ -57,3 +57,18 @@ def build_part_lookup() -> Dict[str, Dict[str, Any]]:
             raise ValueError(f"Duplicate part id found: {part_id}")
         lookup[part_id] = item
     return lookup
+
+
+def load_config() -> Dict[str, Any]:
+    """
+    Load and validate all configuration data.
+    Returns a unified config dict with parts, surveys, measurement rules, etc.
+    """
+    return {
+        'parts': load_parts(),
+        'measurement_rules': load_measurement_rules(),
+        'surveys': load_json_config('seven_cumulative_surveys.json'),
+        'template_schema': load_json_config('seven_template_schema.json'),
+        'rule_lookup': build_rule_lookup(),
+        'part_lookup': build_part_lookup(),
+    }
