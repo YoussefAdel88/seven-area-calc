@@ -4,10 +4,18 @@ Software to parse DXF files containing enclosed regions labeled with SEVEN build
 apply measurement rules from SEVEN Design Standards, and output area calculations in the
 official SEVEN Area Template (.xlsx) format.
 
-## Quick Start (After Phases 1–5)
+## Quick Start — Web Interface (Phase 6)
 
 ```bash
 pip install -r requirements.txt
+python -m src.web_server
+```
+
+Then open **http://localhost:5000** in your browser. Drag and drop a DXF file, click "Process", and download results.
+
+## Quick Start — Command Line (Phase 5)
+
+```bash
 python -m src.cli --input sample.dxf --output results.xlsx
 ```
 
